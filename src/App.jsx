@@ -1,38 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './index.css'
+import { useState, useEffect } from 'react';
+import './index.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch('http://localhost:1337/api/events?populate=flyer');
+        const data = await response.json();
+        setEvents(data.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching events:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, []);
 
   return (
-    <>
-      <div className="text-center mt-10">
-        <a href="https://vitejs.dev" target="_blank" className="mx-5">
-          <img src={viteLogo} className="logo animate-spin-slow h-20" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" className="mx-5">
-          <img src={reactLogo} className="logo react h-20" alt="React logo" />
-        </a>
-      </div>
-      <h1 className="text-5xl text-blue-300 font-bold underline">
-        Vite + React
-      </h1>
-      <div className="card bg-gray-100 shadow-xl p-5 m-5">
-        <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300"
-          onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p className="mt-3">
-          Edit <code className="bg-gray-200 rounded p-1">src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="text-lg text-gray-600 mt-5">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-5">
+      {loading ? (
+        <p>Loading events...</p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-screen-lg">
+          {events.length === 0 ? (
+            <p>No events found.</p>
+          ) : (
+            events.map(event => (
+              <div key={event.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                {event.attributes.flyer && event.attributes.flyer.data && (
+                  <img
+                    src={`http://localhost:1337${event.attributes.flyer.data.attributes.formats?.medium?.url || event.attributes.flyer.data.attributes.url}`}
+                    alt={event.attributes.Title}
+                    className="w-full h-64 object-cover"
+                  />
+                )}
+                <div className="p-4">
+                  <h2 className="text-2xl font-bold mb-2">{event.attributes.Title}</h2>
+                  <p className="text-gray-600 mb-2">{new Date(event.attributes.event_date).toLocaleDateString()}</p>
+                  <p className="text-gray-700">{event.attributes.Description}</p>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
