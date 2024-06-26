@@ -1,0 +1,30 @@
+/* Adds the blend mode effect to make text invert colors on the background */
+.mix-blend-difference {
+    mix-blend-mode: difference;
+  }
+  
+  /* Style for the animated underline */
+  li {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: white;
+    transition: width 0.3s ease;
+    mix-blend-mode: difference;
+    }
+  
+  li:hover .underline {
+    width: 100%;
+  }
+  
+  /* Animation for underline on hover */
+  .hover:underline-animation:hover .underline {
+    width: 100%; /* Ensures the underline grows to full width */
+  }
