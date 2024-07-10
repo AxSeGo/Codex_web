@@ -1,3 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Fondamento:wght@400;700&family=Gloria+Hallelujah&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+.hero {
+  width: 100%;
+  height: 100vh;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sticky-section {
+  width: 100%;
+  height: 80vw;
+  margin: 0 auto; /* Center the sections */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.poetic-text {
+  font-family: 'Fondamento', cursive;
+  font-size: 3em;
+  color: #505050;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease-out;
+}
+
+.poetic-text.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 2s ease-out;
+}

@@ -1,11 +1,20 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
-    "./src/**/*.{js,jsx}",  // Esto incluye todos los archivos .js y .jsx en tu directorio src
+    "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {
+      colors: {
+        'dark-grey': '#505050',
+        'custom-orange': '#F94E33',
+
+      },
+      fontFamily: {
+        gothic: ['Fondamento', 'sans-serif'],
+        glory: ['Gloria Hallelujah', 'cursive'], 
+      },
     },
   },
   plugins: [],
-}
+};

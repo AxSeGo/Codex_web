@@ -827,6 +827,7 @@ export interface ApiLabelLabel extends Schema.CollectionType {
     singularName: 'label';
     pluralName: 'labels';
     displayName: 'Label';
+    description: '';
   };
   options: {
     draftAndPublish: true;
