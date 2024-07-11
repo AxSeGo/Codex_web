@@ -13,16 +13,18 @@ import './index.css';
 function App() {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen bg-white">
-        <Navbar /> 
+      <div className="relative flex flex-col min-h-screen bg-white">
+        <Navbar />
+
+
         <div className="flex-grow">
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/main" element={<Main />} />
             <Route path="/events" element={<Events />} />
-            <Route path="/events/:id" element={<EventDetail />} /> 
+            <Route path="/events/:id" element={<EventDetail />} />
             <Route path="/label" element={<Label />} />
-            <Route path="/label/:id" element={<LabelDetail />} /> 
+            <Route path="/label/:id" element={<LabelDetail />} />
             <Route path="/about" element={<About />} />
           </Routes>
         </div>

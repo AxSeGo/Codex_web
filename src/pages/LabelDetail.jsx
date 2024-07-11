@@ -8,7 +8,7 @@ const LabelDetail = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`http://localhost:1337/api/labels/${id}`)
+    axios.get(`http://localhost:1337/api/labels/${id}?populate=Image`)
       .then(response => {
         setLabel(response.data.data);
         setLoading(false);
@@ -22,10 +22,15 @@ const LabelDetail = () => {
   if (loading) return <div>Loading...</div>;
   if (!label) return <div>Label not found.</div>;
 
+  const baseURL = 'http://localhost:1337';
+  const imageUrl = label.attributes.Image && label.attributes.Image.data && label.attributes.Image.data[0]
+    ? `${baseURL}${label.attributes.Image.data[0].attributes.url}`
+    : 'https://via.placeholder.com/150';
+
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 pt-20 z-10">
       <h1 className="text-3xl font-bold">{label.attributes.Title}</h1>
-      <img src={`http://localhost:1337${label.attributes.Image}`} alt={label.attributes.Title} className="w-full"/>
+      <img src={imageUrl} alt={label.attributes.Title} className="w-full mt-4"/>
       <p className="mt-4">{label.attributes.Description}</p>
     </div>
   );

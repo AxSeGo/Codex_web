@@ -1,13 +1,15 @@
+// src/pages/Main.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'; // Ensure this import is included for routing
-import './styles.css'; // Ensure your CSS path is correct
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import CircleBackground from '../components/CircleBackground/CircleBackground'; // Ensure the correct path to the component
 
 const Main = () => {
   const [events, setEvents] = useState([]);
+  const [labels, setLabels] = useState([]);
 
   useEffect(() => {
-    // Fetch events from API
     axios.get('http://localhost:1337/api/events')
       .then(response => {
         setEvents(response.data.data);
@@ -15,28 +17,35 @@ const Main = () => {
       .catch(error => {
         console.error('Error fetching events:', error);
       });
+
+    axios.get('http://localhost:1337/api/labels?populate=Image') // Fetch labels with images
+      .then(response => {
+        setLabels(response.data.data);
+      })
+      .catch(error => {
+        console.error('Error fetching labels:', error);
+      });
   }, []);
+
+  const getImageUrl = (images) => {
+    if (!images || images.length === 0) return 'https://via.placeholder.com/150';
+    const image = images[0]; // Assuming you want the first image
+    return image.attributes.url; // Use the URL directly
+  };
 
   return (
     <div className="flex flex-col min-h-screen overflow-hidden relative bg-black text-white">
-      {/* Background elements */}
-      <div className="fixed inset-0 flex items-center justify-center z-0">
-        <div className="galaxy-circle"></div> {/* Make sure this has styles to be visible */}
-        <div className="inner-glow"></div> {/* Ensure this has visible styles */}
-      </div>
-
-      {/* Centered main icon */}
-      <div className="flex justify-center items-center w-full h-screen z-10 bg-white mix-blend-difference">
+      <CircleBackground />
+      <div className="flex justify-center items-center w-full h-screen z-10 bg-white">
         <img src="src/assets/iconmain.png" alt="Main Icon" style={{ maxWidth: '500px' }} />
       </div>
 
-      {/* Upcoming Events Section */}
-      <div className="hero h-screen flex items-center justify-center z-10 bg-transparent mix-blend-difference">
-        <div className="sticky top-0 p-10 w-full mx-auto">
+      <div className="hero min-h-screen flex items-center py-20 justify-center z-10 bg-white mix-blend-difference">
+        <div className="sticky top-0 p-20 w-full mx-auto">
           <h1 className="text-black text-4xl font-bold mb-5 mix-blend-difference">UPCOMING EVENTS</h1>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
             {events.map(event => (
-              <Link to={`/events/${event.id}`} key={event.id} className="border-gray-900 border-4 text-gray-900 rounded-lg shadow-lg p-4 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-105 hover:bg-black hover:text-white">
+              <Link to={`/events/${event.id}`} key={event.id} className=" bg-black md:bg-white border-black border-4 text-white md:text-black rounded-lg shadow-lg p-4 transition duration-500 ease-in-out transform hover:scale-105 hover:bg-black hover:text-white">
                 <div className="p-4 rounded-lg">
                   <h2 className="text-2xl font-bold">{event.attributes.Title}</h2>
                   <p>{new Date(event.attributes.event_date).toLocaleDateString()}</p>
@@ -48,21 +57,46 @@ const Main = () => {
         </div>
       </div>
 
-      {/* Additional Information */}
-      <div className="sticky top-0 p-10 border-t-8 border-black mx-auto w-full z-10 bg-transparent mix-blend-difference min-h-screen">
-        <h2 className="text-2xl font-bold mb-5">Additional Information</h2>
-        <p>This is a sample text for additional information below the events section.</p>
+      <div className="sticky top-0 p-20 border-t-8 border-black mx-auto w-full z-10 bg-transparent mix-blend-difference min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-6xl font-gothic mb-5">Who We Are</h2>
+          <p className="text-2xl font-gothic leading-relaxed mx-auto">
+            "Soundscapes merge, dreams collide,<br />
+            Emotions flare, hearts open wide.<br />
+            A canvas of noise, a touch of the bizarre,<br />
+            In the night's embrace, we heal and scar.<br />
+            Beats drop, spirits soar,<br />
+            In this space, we are something more.<br />
+            A fusion of weird, a symphony of pain,<br />
+            Where the lost dance, and the seekers gain.<br />
+            This is Codex, the echo of our cries,<br />
+            A place for the soul's surprise."
+          </p>
+        </div>
       </div>
 
-      {/* Poetic Section */}
       <div className="w-60vw mx-auto text-center my-20 w-full z-10 bg-transparent mix-blend-difference">
         <h1 className="text-6xl font-gothic animate-fadeInUp">Poetry in Motion</h1>
       </div>
 
-      {/* Label Section */}
-      <div className="p-10 border-t-8 border-black mx-auto w-full z-10 bg-transparent mix-blend-difference">
-        <h2 className="text-2xl font-bold mb-5">Label Section</h2>
-        <p>This is a sample text for the label section below the poetic text.</p>
+      <div className="p-20 border-t-8 border-black mx-auto w-full z-10 bg-transparent mix-blend-difference">
+        <h2 className="text-2xl font-bold mb-5 font">Label Section - Latest Releases</h2>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-20">
+          {labels.map(label => (
+            <div key={label.id} className="mb-4">
+              <h3 className="text-xl font-bold font-gothic">{label.attributes.Title}</h3>
+              {label.attributes.Image && (
+                <img 
+                  src={`http://localhost:1337${getImageUrl(label.attributes.Image.data)}`} 
+                  alt={label.attributes.Title} 
+                  className="w-full h-auto my-4 object-cover rounded-lg"
+                />
+              )}
+              <p>{label.attributes.Description}</p>
+              <Link to={`/label/${label.id}`} className="inline-block mt-4 px-4 py-2 text-white border-white border-2 rounded-full hover:text-black hover:bg-white transition duration-300">View Details</Link>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
