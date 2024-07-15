@@ -40,7 +40,7 @@ const CircleBackground = () => {
           <div className="circle rounded-full absolute w-[35%] h-[35%] border border-neutral-600"></div>
           <div className="circle rounded-full absolute w-[30%] h-[30%] border border-neutral-600"></div>
           <div className="circle rounded-full absolute w-[25%] h-[25%] border border-neutral-600"></div>
-          <div className="circle rounded-full absolute w-[20%] h-[20%] border border-neutral-600"></div>
+          <div className="circle blur-sm rounded-full absolute w-[20%] h-[20%] border border-neutral-600"></div>
         </section>
       </main>
     </div>

@@ -8,15 +8,17 @@ import Label from './pages/Label';
 import About from './pages/About';
 import Footer from './components/Footer/Footer';
 import LabelDetail from './pages/LabelDetail';
+import Artist from './pages/Artist';
+import ArtistDetail from './pages/ArtistDetail';
+import ScrollToTop from './components/ScrollToTop/ScrollToTop'; // Asegúrate de que el import está correcto
 import './index.css';
 
 function App() {
   return (
     <Router>
+      <ScrollToTop /> 
       <div className="relative flex flex-col min-h-screen bg-white">
         <Navbar />
-
-
         <div className="flex-grow">
           <Routes>
             <Route path="/" element={<Main />} />
@@ -25,6 +27,8 @@ function App() {
             <Route path="/events/:id" element={<EventDetail />} />
             <Route path="/label" element={<Label />} />
             <Route path="/label/:id" element={<LabelDetail />} />
+            <Route path="/artist" element={<Artist />} />
+            <Route path="/artist/:id" element={<ArtistDetail />} />
             <Route path="/about" element={<About />} />
           </Routes>
         </div>

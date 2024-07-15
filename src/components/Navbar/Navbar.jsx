@@ -15,7 +15,7 @@ const Navbar = () => {
       <Link to="/" className="text-3xl font-bold text-white font-gothic">CODEX</Link>
 
       <div className="hidden lg:flex space-x-4">
-        {['Main', 'Events', 'Label', 'About'].map((item) => (
+        {['Main', 'Events', 'Label', 'Artist', 'About'].map((item) => (
           <li key={item} className="relative group list-none">
             <Link to={`/${item.toLowerCase()}`} className="text-xl text-white font-gothic">
               {item.toUpperCase()}

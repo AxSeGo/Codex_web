@@ -2,6 +2,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
 body, html {
   margin: 0;
   padding: 0;
@@ -46,3 +48,8 @@ body, html {
 .animate-fadeInUp {
   animation: fadeInUp 2s ease-out;
 }
+
+
+
+
+

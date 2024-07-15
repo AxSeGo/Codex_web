@@ -1,9 +1,9 @@
-// src/pages/Events.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import CircleBackground from '../components/CircleBackground/CircleBackground'; // Correct path to your component
+import moment from 'moment'; // Ensure moment is imported
+import CircleBackground from '../components/CircleBackground/CircleBackground';
 
 const Events = () => {
   const [events, setEvents] = useState([]);
@@ -40,11 +40,13 @@ const Events = () => {
     if (formats.thumbnail) return formats.thumbnail.url;
     return null;
   };
+  
 
   return (
-    <div className="relative bg-white mb-6 min-h-screen z-10">
-      <h1 className="text-4xl font-bold text-center mb-10 pt-20 p-3 text-black font-gothic">All Events - Present and Past</h1>
-      <div className="flex justify-center mb-10">
+    <div className="relative bg-white mb-6 min-h-screen z-1">
+      
+      <h1 className="text-4xl font-bold text-center mb-2 pt-20 p-3 text-black font-gothic">CODEX CLUB EVENTS AVANT YO</h1>
+      <div className="flex justify-center mb-10 z-30">
         {['all', 'upcoming', 'past'].map(f => (
           <button 
             key={f}
@@ -58,7 +60,7 @@ const Events = () => {
         {filteredEvents.length > 0 ? (
           filteredEvents.map(event => (
             <motion.div key={event.id}
-              className="card bg-gray-100 shadow-lg p-4 flex flex-col items-center cursor-pointer relative overflow-hidden border-2 border-black"
+              className="card bg-gray-100 shadow-lg flex flex-col items-center cursor-pointer relative overflow-hidden"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}>
               <img 
@@ -66,11 +68,11 @@ const Events = () => {
                 alt={event.attributes.Title} 
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 p-4">
-                <h2 className="text-xl font-bold text-white mb-2 text-center">{event.attributes.Title}</h2>
-                <p className="text-white">{new Date(event.attributes.event_date).toLocaleDateString()}</p>
-                <p className="text-white mb-2">{event.attributes.Description}</p>
-                <Link to={`/events/${event.id}`} className="mt-2 px-4 py-2 text-white border-white border-2 rounded-full hover:bg-white hover:text-black transition duration-300">View Details</Link>
+              <div className="absolute inset-0 bg-black bg-opacity-80 flex flex-col items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 p-4">
+                <p className="text-sm text-orange-500">{moment(event.attributes.event_date).format('ddd, M.D.YYYY')} - {event.attributes.Location}</p>
+                <h2 className="text-xl font-bold text-white mb-2">{event.attributes.Title}</h2>
+                <p className="text-white">{event.attributes.Artist}</p>
+                <Link to={`/events/${event.id}`} className="mt-2 px-4 py-2 border-orange-500 text-orange-500 border-2 rounded-full hover:bg-orange-500 hover:text-white transition duration-300">View Details</Link>
               </div>
             </motion.div>
           ))

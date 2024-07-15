@@ -42,18 +42,20 @@ const Main = () => {
 
       <div className="hero min-h-screen flex items-center py-20 justify-center z-10 bg-white mix-blend-difference">
         <div className="sticky top-0 p-20 w-full mx-auto">
-          <h1 className="text-black text-4xl font-bold mb-5 mix-blend-difference">UPCOMING EVENTS</h1>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
-            {events.map(event => (
-              <Link to={`/events/${event.id}`} key={event.id} className=" bg-black md:bg-white border-black border-4 text-white md:text-black rounded-lg shadow-lg p-4 transition duration-500 ease-in-out transform hover:scale-105 hover:bg-black hover:text-white">
-                <div className="p-4 rounded-lg">
-                  <h2 className="text-2xl font-bold">{event.attributes.Title}</h2>
-                  <p>{new Date(event.attributes.event_date).toLocaleDateString()}</p>
-                  <p>{event.attributes.Description}</p>
-                </div>
-              </Link>
-            ))}
+          <h1 className="text-black text-4xl font-bold mb-5 mix-blend-difference font-gothic text-center">UPCOMING EVENTS</h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {events.map(event => (
+        <Link to={`/events/${event.id}`} key={event.id} className="bg-white border-black border-4 text-black rounded-lg shadow-lg p-4 transition duration-500 ease-in-out transform hover:scale-105 hover:bg-black hover:text-white">
+          <div className="flex flex-col justify-between">
+            <h2 className="text-2xl font-bold mb-2">{event.attributes.Title}</h2>
+            <div className="flex justify-between">
+              <p>{new Date(event.attributes.event_date).toLocaleDateString()}</p>
+              <p>{event.attributes.Location}</p>
+            </div>
           </div>
+        </Link>
+      ))}
+    </div>
         </div>
       </div>
 
@@ -75,9 +77,27 @@ const Main = () => {
         </div>
       </div>
 
-      <div className="w-60vw mx-auto text-center my-20 w-full z-10 bg-transparent mix-blend-difference">
-        <h1 className="text-6xl font-gothic animate-fadeInUp">Poetry in Motion</h1>
-      </div>
+      <motion.div
+        className="w-60vw mx-auto text-center my-20 w-full z-10 bg-transparent mix-blend-difference bg-black"
+        initial={{ filter: 'blur(10px)' }}
+        whileInView={{ filter: 'blur(0px)' }}
+        transition={{ duration: 1 }}
+      >
+        <h1 className="text-6xl font-gothic glitch flicker">Join Our Newsletter</h1>
+        <p className="text-2xl font-gothic leading-relaxed mx-auto mt-4">
+          Join our newsletter to keep updated about events or new releases!
+        </p>
+        <div className="mt-10">
+          <input
+            type="email"
+            placeholder="Your Email"
+            className="p-4 text-black rounded-md border-2 border-white"
+          />
+          <button className="p-4 ml-2 bg-white text-black rounded-md border-2 border-white hover:bg-black hover:text-white transition duration-300">
+            Send
+          </button>
+        </div>
+      </motion.div>
 
       <div className="p-20 border-t-8 border-black mx-auto w-full z-10 bg-transparent mix-blend-difference">
         <h2 className="text-2xl font-bold mb-5 font">Label Section - Latest Releases</h2>
