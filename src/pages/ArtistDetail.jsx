@@ -117,7 +117,7 @@ const ArtistDetail = () => {
         {/* Botón Back to Artists */}
         <div className="w-full mt-10 text-center">
           <button
-            onClick={() => navigate('/artists')}
+            onClick={() => navigate('/artist')}
             className="bg-white text-black border-black border-2 rounded-full px-4 py-2 hover:bg-black hover:text-white transition duration-300"
           >
             Back to Artists

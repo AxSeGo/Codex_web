@@ -10,13 +10,13 @@ import Footer from './components/Footer/Footer';
 import LabelDetail from './pages/LabelDetail';
 import Artist from './pages/Artist';
 import ArtistDetail from './pages/ArtistDetail';
-import ScrollToTop from './components/ScrollToTop/ScrollToTop'; // Asegúrate de que el import está correcto
+import ScrollToTop from './components/ScrollToTop';
 import './index.css';
 
 function App() {
   return (
     <Router>
-      <ScrollToTop /> 
+      <ScrollToTop />
       <div className="relative flex flex-col min-h-screen bg-white">
         <Navbar />
         <div className="flex-grow">

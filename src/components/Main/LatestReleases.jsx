@@ -14,7 +14,16 @@ const LatestReleases = ({ labels }) => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-20">
         {labels.map(label => (
           <div key={label.id} className="mb-4">
-            <h3 className="text-xl font-bold font-gothic">{label.attributes.Title}</h3>
+                <div className="block">
+                <span className="text-xl font-bold font-gothic bg-white text-black inline-block mb-1">
+                    {label.attributes.Artist} -
+                </span>
+                </div>
+                <div className="block">
+                <span className="text-xl font-bold font-gothic bg-white text-black inline-block">
+                    {label.attributes.Title}
+                </span>
+                </div>
             {label.attributes.Image && (
               <img 
                 src={`http://localhost:1337${getImageUrl(label.attributes.Image.data)}`} 

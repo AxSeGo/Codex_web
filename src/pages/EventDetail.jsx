@@ -57,7 +57,7 @@ const EventDetail = () => {
 
   return (
     <div className="container mx-auto px-20 py-4 pt-20 bg-white z-10 min-h-screen flex flex-wrap md:flex-nowrap">
-      <div className="w-full md:w-1/2">
+      <div className="w-full">
         {imageUrl && <img src={imageUrl} alt={event.attributes.Title} className="h-full w-full object-cover rounded" />}
       </div>
       <div className="w-full md:w-1/2 md:pl-4 flex flex-col justify-between">

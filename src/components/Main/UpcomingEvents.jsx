@@ -15,18 +15,18 @@ const UpcomingEvents = ({ events = [] }) => {
   };
 
   return (
-    <div className="hero min-h-screen flex flex-col items-center py-20 px-4 md:px-20 justify-center z-10 bg-white mix-blend-difference">
+    <div className="hero min-h-screen flex flex-col items-center py-20 px-4 md:px-20 justify-center z-10 bg-transparent ">
       <div className="w-full mx-auto mb-20">
-        <h1 className="text-black text-4xl font-bold mb-5 mix-blend-difference font-gothic text-center">UPCOMING EVENTS</h1>
+        <h1 className="text-white text-4xl font-bold mb-5 mix-blend-difference font-gothic text-center">UPCOMING EVENTS</h1>
 
         {nextEvent ? (
-          <div className="flex flex-col md:flex-row bg-white border-black border-4 text-black rounded-lg shadow-lg p-6 transition duration-500 ease-in-out transform hover:scale-105 hover:bg-black hover:text-white">
+          <div className="h-2/3 flex flex-col md:flex-row bg-black border-white border-4 text-white rounded-lg shadow-lg p-6 transition duration-500 ease-in-out transform">
             <div className="w-full md:w-1/2 mb-4 md:mb-0 md:mr-4">
               {nextEvent.attributes.flyer?.data && (
                 <img 
                   src={`http://localhost:1337${getImageUrl(nextEvent.attributes.flyer.data.attributes.formats)}`} 
                   alt={nextEvent.attributes.Title} 
-                  className="w-full h-full object-cover rounded-lg"
+                  className="w-full h-full object-cover rounded-lg mix-blend-normal"
                 />
               )}
             </div>
@@ -56,7 +56,7 @@ const UpcomingEvents = ({ events = [] }) => {
       </div>
 
       <div className="w-full mx-auto">
-        <h2 className="text-black text-3xl font-bold mb-5 mix-blend-difference font-gothic text-center">Take a Look at Our Last Events</h2>
+        <h2 className="text-white text-3xl font-bold mb-5 mix-blend-difference font-gothic text-center">Take a Look at Our Last Events</h2>
         <div className="grid grid-cols-1 gap-6">
           {events.slice(1, 5).map((event, index) => (
             <Link to={`/events/${event.id}`} key={event.id} className="bg-white border-black border-4 text-black rounded-lg shadow-lg p-4 transition duration-500 ease-in-out transform hover:scale-105 hover:bg-black hover:text-white">
