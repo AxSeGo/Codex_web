@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import OutlineButton from '../components/Button/OutlineButton'; // Ensure the correct path to the component
 
 const LabelDetail = () => {
   const { id } = useParams();
@@ -44,31 +45,42 @@ const LabelDetail = () => {
     : 'https://via.placeholder.com/150';
 
   return (
-    <div className="container mx-auto p-4 pt-20 flex flex-wrap md:flex-nowrap items-start z-10">
+    <div className=" mx-auto p-4 md:px-10 pt-20 flex flex-wrap md:flex-nowrap items-start bg-black text-white min-h-screen">
       <div className="w-full md:w-1/2">
         <img src={imageUrl} alt={label.attributes.Title} className="w-full object-cover rounded" />
       </div>
       <div className="w-full md:w-1/2 md:pl-4">
+      <h1 className="text-4xl font-bold">{label.attributes.Artist}</h1>
         <h1 className="text-4xl font-bold">{label.attributes.Title}</h1>
         <p className="mt-4 text-lg">{label.attributes.Description}</p>
         {label.attributes.Bandcamp && (
-          <a href={label.attributes.Bandcamp} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700 mt-2 block">
-            Listen on Bandcamp
-          </a>
+          <div className="mt-4">
+            <iframe 
+              style={{ border: 0, width: '100%', height: '120px' }} 
+              src="https://bandcamp.com/EmbeddedPlayer/album=2613296696/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" 
+              seamless
+            >
+              <a href={label.attributes.Bandcamp} target="_blank" rel="noopener noreferrer" className="text-white hover:text-orange-500 mt-2 block">
+                Listen on Bandcamp
+              </a>
+            </iframe>
+          </div>
         )}
 
         {artist && (
           <div className="mt-4 flex items-center">
             <img src={artistAvatarUrl} alt={artist.attributes.Name} className="w-16 h-16 object-cover rounded-full mr-4" />
-            <Link to={`/artist/${artist.id}`} className="text-2xl text-blue-500 hover:text-blue-700">
+            <Link to={`/artist/${artist.id}`} className="text-2xl text-white hover:text-orange-500">
               {artist.attributes.Name}
             </Link>
           </div>
         )}
 
-        <button onClick={() => navigate(-1)} className="mt-4 bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition duration-300">
-          Back to Labels
+        <div className="mt-4">
+        <button onClick={() => navigate('/label')} className="bg-white text-black border-black border-2 rounded-full px-4 py-2 hover:bg-black hover:text-white transition duration-300">
+          Back to Label
         </button>
+        </div>
       </div>
     </div>
   );

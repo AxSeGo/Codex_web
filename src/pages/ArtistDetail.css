@@ -1,0 +1,11 @@
+body {
+    background-color: white;
+  }
+  
+  .transition-all {
+    transition: all 1s ease;
+  }
+  
+  .transition-opacity {
+    transition: opacity 1s ease;
+  }

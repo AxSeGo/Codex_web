@@ -26,7 +26,8 @@ const CircleBackground = () => {
           {[...Array(19)].map((_, i) => (
             <div
               key={i}
-              className={`circle rounded-full absolute  border-2  border-neutral-600 circle-${i + 1}`}
+              className={`circle rounded-full absolute border-2 border-neutral-600 circle-${i + 1}`}
+              style={{ zIndex: -1 }}
             ></div>
           ))}
         </section>

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 const Newsletter = () => {
   return (
     <motion.div
-      className="h-screen mx-auto flex flex-col items-center justify-center text-center w-full z-10 bg-transparent"
+      className="h-screen py-20 px-4 md:px-20 flex flex-col items-center justify-center text-center w-full z-10 bg-gradient-to-b from-transparent to-black mix-blend-normal"
       initial={{ filter: 'blur(10px)' }}
       whileInView={{ filter: 'blur(0px)' }}
       transition={{ duration: 1 }}

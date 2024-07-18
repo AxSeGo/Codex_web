@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import CircleBackground from '../components/CircleBackground/CircleBackground'; // Ensure the correct path to the component
+import OutlineButton from '../components/Button/OutlineButton'; // Ensure the correct path to the component
 
 const Label = () => {
   const [labels, setLabels] = useState([]);
@@ -25,17 +25,17 @@ const Label = () => {
   };
 
   return (
-    <div className="relative bg-white min-h-screen p-10 pt-20 ">
-      <h1 className="text-4xl font-bold text-center text-black mb-10 font-gothic">LABEL ITEMS</h1>
-      <div className="grid grid-cols-1 gap-10">
+    <div className="relative bg-black text-white min-h-screen p-10 pt-20">
+      <h1 className="text-4xl font-bold text-center mb-10 font-gothic">LABEL ITEMS</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         {labels.map(label => (
-          <div key={label.id} className="bg-white shadow-lg p-5 flex flex-col md:flex-row items-center mb-5 rounded-lg border">
-            <img src={getImageUrl(label.attributes.Image?.data)} alt={label.attributes.Title} className="w-full md:w-1/4 h-auto object-cover rounded-md" />
-            <div className="flex flex-col md:pl-4 w-full">
-              <h2 className="text-xl font-bold text-black mt-4 md:mt-0">{label.attributes.Artist} - {label.attributes.Title}</h2>
-              <p className="text-gray-600 my-2">{label.attributes.Description}</p>
-              <div className="mt-auto text-right">
-                <Link to={`/label/${label.id}`} className="bg-black text-white rounded px-4 py-2 hover:bg-gray-800 transition duration-300">View More</Link>
+          <div key={label.id} className=" shadow-lg p-5 items-center border-gray-700 border-2 backdrop-brightness-50 grid md:grid-cols-2 ">
+            <img src={getImageUrl(label.attributes.Image?.data)} alt={label.attributes.Title} className="w-full h-auto object-cover" />
+            <div className="flex flex-col w-full mt-4 pl-4">
+              <h2 className="text-xl font-bold mb-2">{label.attributes.Artist} - {label.attributes.Title}</h2>
+              <p className="text-gray-300 mb-4">{label.attributes.Description}</p>
+              <div className="mt-auto ">
+                <OutlineButton to={`/label/${label.id}`}>View More</OutlineButton>
               </div>
             </div>
           </div>

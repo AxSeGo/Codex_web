@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import CircleBackground from '../components/CircleBackground/CircleBackground';
 
 const ArtistDetail = () => {
   const { id } = useParams();
@@ -14,115 +15,121 @@ const ArtistDetail = () => {
       .then(response => {
         setArtist(response.data.data);
       })
-      .catch(error => {
-        console.error('Error fetching artist details:', error);
-      });
+      .catch(error => console.error('Error fetching artist details:', error));
   }, [id]);
 
   useEffect(() => {
     axios.get('http://localhost:1337/api/labels?populate=Image')
-      .then(response => {
-        setLabels(response.data.data);
-      })
-      .catch(error => {
-        console.error('Error fetching labels:', error);
-      });
+      .then(response => setLabels(response.data.data))
+      .catch(error => console.error('Error fetching labels:', error));
   }, []);
 
   useEffect(() => {
     axios.get('http://localhost:1337/api/events?populate=flyer')
-      .then(response => {
-        setEvents(response.data.data);
-      })
-      .catch(error => {
-        console.error('Error fetching events:', error);
-      });
+      .then(response => setEvents(response.data.data))
+      .catch(error => console.error('Error fetching events:', error));
   }, []);
 
-  if (!artist) {
-    return <div>Loading...</div>;
-  }
+  if (!artist) return <div>Loading...</div>;
 
   const baseURL = 'http://localhost:1337';
   const avatarUrl = artist.attributes.Avatar?.data
     ? baseURL + (artist.attributes.Avatar.data.attributes.formats?.large?.url || artist.attributes.Avatar.data.attributes.url)
     : 'https://via.placeholder.com/150';
-
   const artistName = artist.attributes.Name;
-
   const filteredLabels = labels.filter(label => label.attributes.Artist === artistName);
   const filteredEvents = events.filter(event => event.attributes.Artist.includes(artistName));
 
   return (
-    <div className="min-h-screen p-10 pt-20 bg-white">
-      <h1 className="text-4xl font-bold text-center text-black mb-10">{artistName}</h1>
-      <div className="flex flex-col items-center">
-        <img src={avatarUrl} alt={artistName} className="w-64 h-64 object-cover rounded-full mb-6" />
-        <p className="text-center text-gray-600 mb-6">{artist.attributes.Description}</p>
-        <div className="flex space-x-4 mb-10">
-          {artist.attributes.Instagram && (
-            <a href={`https://${artist.attributes.Instagram}`} className="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">
-              Instagram
-            </a>
-          )}
-          {artist.attributes.Bandcamp && (
-            <a href={`https://${artist.attributes.Bandcamp}`} className="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">
-              Bandcamp
-            </a>
-          )}
-          {artist.attributes.MoreLinks && (
-            <a href={`https://${artist.attributes.MoreLinks}`} className="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">
-              More Links
-            </a>
-          )}
-        </div>
+    <div className="relative bg-black overflow-hidden">
+      {/* Circle Background always below the content */}
+      <CircleBackground />
+      
+      {/* Avatar section */}
+      <div className="relative h-screen flex items-center justify-center z-10 bg-gradient-to-t from-black to-transparent ">
+        <img src={avatarUrl} alt={artistName} className="w-4/5 md:w-1/2 h-auto object-cover rounded-full mt-5 pb-10" />
+      </div>
 
-        {/* Sección de Tapes */}
-        <div className="w-full mt-10">
-          <h2 className="text-3xl font-bold mb-6">Tapes</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {filteredLabels.map(label => (
-              <div key={label.id} className="bg-white shadow-lg p-5 mb-5 rounded-lg border">
-                <img src={baseURL + label.attributes.Image.data[0].attributes.formats.thumbnail.url} alt={label.attributes.Title} className="w-full h-64 object-cover rounded mb-4" />
-                <div className="text-left">
-                  <h3 className="text-xl font-bold mb-2">{label.attributes.Title}</h3>
-                  <p className="text-gray-600 mb-4">{label.attributes.Description}</p>
-                  <a href={label.attributes.Bandcamp} className="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">
-                    Bandcamp
-                  </a>
-                </div>
-              </div>
-            ))}
+      {/* Artist Name, Description, and Links */}
+      <div className="relative z-20 text-white bg-black py-10 px-10 flex flex-col items-center justify-center ">        <div className="flex flex-col md:flex-row justify-center items-start md:items-center w-full">
+          <div className="md:w-1/3 w-full mb-4 md:mb-0">
+            <h1 className="text-6xl font-bold font-gothic  md:text-left">{artistName}</h1>
+          </div>
+          <div className="md:w-2/3 w-full text-left md:pl-8">
+            <p className="mb-4">{artist.attributes.Description}</p>
+            <div className="flex flex-col space-y-2 mt-4 md:mt-0">
+              {artist.attributes.Instagram && (
+                <a href={`https://${artist.attributes.Instagram}`} className="text-orange-500 hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">Instagram</a>
+              )}
+              {artist.attributes.Bandcamp && (
+                <a href={`https://${artist.attributes.Bandcamp}`} className="text-orange-500 hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">Bandcamp</a>
+              )}
+              {artist.attributes.MoreLinks && (
+                <a href={`https://${artist.attributes.MoreLinks}`} className="text-orange-500 hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">More Links</a>
+              )}
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Sección de Events */}
-        <div className="w-full mt-10">
-          <h2 className="text-3xl font-bold mb-6">Events</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {filteredEvents.map(event => (
-              <div key={event.id} className="bg-white shadow-lg p-5 mb-5 rounded-lg border">
-                <img src={baseURL + event.attributes.flyer.data.attributes.formats.thumbnail.url} alt={event.attributes.Title} className="w-full h-64 object-cover rounded mb-4" />
-                <div className="text-left">
-                  <h3 className="text-xl font-bold mb-2">{event.attributes.Title}</h3>
-                  <p className="text-gray-600 mb-4">{event.attributes.Description}</p>
-                  <p className="text-gray-600 mb-4">{event.attributes.Location}</p>
-                  <p className="text-gray-600 mb-4">{new Date(event.attributes.event_date).toLocaleDateString()}</p>
+      {/* Events Section */}
+      <div className="relative z-20 w-full p-10 bg-gradient-to-b from-black to-transparent mt-0">
+        <h2 className="text-6xl font-bold mb-6 text-white font-gothic text-center">Events</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {filteredEvents.map(event => (
+            <div key={event.id} className="shadow-lg p-5 mb-5 rounded-lg border border-gray-800 backdrop-blur-sm relative">
+              <div className="flex flex-col justify-between h-full">
+                <div>
+                  <div className="text-left text-white">
+                    <h3 className="text-xl font-bold mb-2">{event.attributes.Title}</h3>
+                  </div>
                 </div>
+                <div className="text-left text-white mt-4">
+                  <p className="mb-2">{event.attributes.Location}</p>
+                  <p className="mb-4">{new Date(event.attributes.event_date).toLocaleDateString('en-US', { weekday: 'short', month: 'numeric', day: 'numeric', year: 'numeric' }).replace(',', '')}</p>
+                </div>
+                <button 
+                  className="absolute top-2 right-2 w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center hover:bg-white hover:text-orange-500 transition duration-300"
+                  onClick={() => navigate(`/events/${event.id}`)}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
+                  </svg>
+                </button>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
+      </div>
 
-        {/* Botón Back to Artists */}
-        <div className="w-full mt-10 text-center">
-          <button
-            onClick={() => navigate('/artist')}
-            className="bg-white text-black border-black border-2 rounded-full px-4 py-2 hover:bg-black hover:text-white transition duration-300"
-          >
-            Back to Artists
-          </button>
+      {/* Tapes Section */}
+      <div className="relative z-20 w-full mt-10 p-10">
+        <h2 className="text-6xl font-gothic text-white mb-6 text-center">Tapes</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {filteredLabels.map(label => (
+            <div key={label.id} className="shadow-lg p-5 mb-5 rounded-lg border border-gray-800 backdrop-blur-sm relative">
+              <img src={baseURL + (label.attributes.Image.data[0].attributes.formats.large?.url || label.attributes.Image.data[0].attributes.formats.medium?.url || label.attributes.Image.data[0].attributes.formats.thumbnail.url)} alt={label.attributes.Title} className="w-full h-64 object-cover rounded mb-4" />
+              <div className="text-left text-white">
+                <h3 className="text-xl font-bold mb-2">{label.attributes.Title}</h3>
+              </div>
+              <button 
+                className="absolute top-2 right-2 w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center hover:bg-white hover:text-orange-500 transition duration-300"
+                onClick={() => navigate(`/label/${label.id}`)}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
+                </svg>
+              </button>
+            </div>
+          ))}
         </div>
+      </div>
+
+      {/* Back to Artists Button */}
+      <div className="relative z-20 w-full my-10 text-center">
+        <button onClick={() => navigate('/artist')} className="bg-white text-black border-black border-2 rounded-full px-4 py-2 hover:bg-black hover:text-white transition duration-300">
+          Back to Artists
+        </button>
       </div>
     </div>
   );
