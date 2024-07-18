@@ -32,8 +32,11 @@ const Label = () => {
           <div key={label.id} className=" shadow-lg p-5 items-center border-gray-700 border-2 backdrop-brightness-50 grid md:grid-cols-2 ">
             <img src={getImageUrl(label.attributes.Image?.data)} alt={label.attributes.Title} className="w-full h-auto object-cover" />
             <div className="flex flex-col w-full mt-4 pl-4">
-              <h2 className="text-xl font-bold mb-2">{label.attributes.Artist} - {label.attributes.Title}</h2>
-              <p className="text-gray-300 mb-4">{label.attributes.Description}</p>
+            <h2 className="text-xl font-bold mb-2">
+              <span className="bg-white text-black inline-block px-2 my-1 font-gothic">{label.attributes.Artist}</span>
+              <span> /// </span>
+              <span className="bg-white text-black inline-block px-2 my-1 font-gothic">{label.attributes.Title}</span>
+            </h2>              <p className="text-gray-300 mb-4">{label.attributes.Description}</p>
               <div className="mt-auto ">
                 <OutlineButton to={`/label/${label.id}`}>View More</OutlineButton>
               </div>

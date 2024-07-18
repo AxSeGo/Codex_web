@@ -50,8 +50,9 @@ const LabelDetail = () => {
         <img src={imageUrl} alt={label.attributes.Title} className="w-full object-cover rounded" />
       </div>
       <div className="w-full md:w-1/2 md:pl-4">
-      <h1 className="text-4xl font-bold">{label.attributes.Artist}</h1>
-        <h1 className="text-4xl font-bold">{label.attributes.Title}</h1>
+      <h1 className="text-4xl font-gothic bg-white text-black inline-block px-2 my-1 ">{label.attributes.Artist}</h1>
+      <span className='mx-1'> </span>
+        <h1 className="text-4xl font-gothic  bg-white text-black inline-block px-2 my-1 ">{label.attributes.Title}</h1>
         <p className="mt-4 text-lg">{label.attributes.Description}</p>
         {label.attributes.Bandcamp && (
           <div className="mt-4">

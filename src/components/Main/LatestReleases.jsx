@@ -19,7 +19,7 @@ const LatestReleases = ({ labels }) => {
           <div key={label.id} className="mb-4">
             <div className="block">
               <span className="text-lg md:text-xl font-bold font-gothic bg-white text-black inline-block mb-1">
-                {label.attributes.Artist} -
+                {label.attributes.Artist} ///
               </span>
             </div>
             <div className="block">
