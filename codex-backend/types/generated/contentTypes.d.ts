@@ -895,6 +895,37 @@ export interface ApiLabelLabel extends Schema.CollectionType {
   };
 }
 
+export interface ApiSubscriberSubscriber extends Schema.CollectionType {
+  collectionName: 'subscribers';
+  info: {
+    singularName: 'subscriber';
+    pluralName: 'subscribers';
+    displayName: 'Subscribers';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    email: Attribute.Email;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::subscriber.subscriber',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::subscriber.subscriber',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -916,6 +947,7 @@ declare module '@strapi/types' {
       'api::artist.artist': ApiArtistArtist;
       'api::event.event': ApiEventEvent;
       'api::label.label': ApiLabelLabel;
+      'api::subscriber.subscriber': ApiSubscriberSubscriber;
     }
   }
 }

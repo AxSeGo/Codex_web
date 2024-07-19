@@ -27,17 +27,18 @@ function Footer() {
 
   return (
     <footer className="bg-black z-30 text-white px-5 lg:px-20 py-10 flex flex-wrap justify-between items-start">
-      <div className="w-full md:w-1/5 mb-8 md:mb-0 flex justify-center md:justify-start">
-        <img src="/src/assets/icon_footer.svg" alt="Codex Icon" className="h-20 w-20 mb-4 mix-blend-difference " />
+      <div className="pt-10 pr-2 w-full md:w-1/5 mb-8 md:mb-0 flex justify-center md:justify-start">
+        <img src="/src/assets/logo.svg" alt="Codex Logo" />
+
       </div>
       <div className="w-full md:w-1/5 mb-8 md:mb-0">
         <h3 className="text-lg font-bold mb-4 font-gothic">Sections</h3>
         <ul>
-          <li><Link to="/main" className="hover:text-gray-400">Main</Link></li>
-          <li><Link to="/events" className="hover:text-gray-400">Events</Link></li>
-          <li><Link to="/label" className="hover:text-gray-400">Label</Link></li>
-          <li><Link to="/artist" className="hover:text-gray-400">Artists</Link></li>
-          <li><Link to="/about" className="hover:text-gray-400">About</Link></li>
+          <li><Link to="/main" className="hover:text-orange-500">Main</Link></li>
+          <li><Link to="/events" className="hover:text-orange-500">Events</Link></li>
+          <li><Link to="/label" className="hover:text-orange-500">Label</Link></li>
+          <li><Link to="/artist" className="hover:text-orange-500">Artists</Link></li>
+          <li><Link to="/about" className="hover:text-orange-500">About</Link></li>
         </ul>
       </div>
       <div className="w-full md:w-2/5 mb-8 md:mb-0">
@@ -45,7 +46,7 @@ function Footer() {
         <ul>
           {events.map(event => (
             <li key={event.id}>
-              <Link to={`/events/${event.id}`} className="hover:text-gray-400">
+              <Link to={`/events/${event.id}`} className="hover:text-orange-500">
                 {event.attributes.Title} - {new Date(event.attributes.event_date).toLocaleDateString()}
               </Link>
             </li>
@@ -62,7 +63,7 @@ function Footer() {
               href={icon.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-gray-400"
+              className="text-white hover:text-orange-500"
             >
               {React.createElement(icon.icon, { size: 24 })}
             </a>

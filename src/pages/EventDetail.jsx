@@ -120,12 +120,9 @@ const EventDetail = () => {
           </div>
         </div>
         <div className="self-end mt-4 flex">
-          <button 
-            onClick={() => navigate('/events')} 
-            className="bg-black text-white border-white border-2 rounded-full px-4 py-2 hover:bg-white hover:text-black transition duration-300"
-          >
-            Back to Events
-          </button>
+
+        <OutlineButton to="/events" className="mt-4">Back to events</OutlineButton>
+
         </div>
       </div>
     </motion.div>

@@ -18,12 +18,12 @@ const LatestReleases = ({ labels }) => {
         {labels.map(label => (
           <div key={label.id} className="mb-4">
             <div className="block">
-              <span className="text-lg md:text-xl font-bold font-gothic bg-white text-black inline-block mb-1">
+              <span className="text-2xl md:text-xl font-bold font-gothic bg-white text-black inline-block mb-1">
                 {label.attributes.Artist} ///
               </span>
             </div>
             <div className="block">
-              <span className="text-lg md:text-xl font-bold font-gothic bg-white text-black inline-block">
+              <span className="text-2xl font-bold font-gothic bg-white text-black inline-block">
                 {label.attributes.Title}
               </span>
             </div>

@@ -1,7 +1,14 @@
 module.exports = [
   'strapi::errors',
   'strapi::security',
-  'strapi::cors',
+  // Ensure 'strapi::cors' is listed only once and configured as needed
+  {
+    name: 'strapi::cors',
+    config: {
+      enabled: true,
+      origin: ['http://localhost:5173'], // Adjust this to match your frontend URL
+    },
+  },
   'strapi::poweredBy',
   'strapi::logger',
   'strapi::query',
@@ -9,11 +16,4 @@ module.exports = [
   'strapi::session',
   'strapi::favicon',
   'strapi::public',
-  {
-    name: 'strapi::cors',
-    config: {
-      enabled: true,
-      origin: ['http://localhost:5173'], // Your frontend URL
-    },
-  },
 ];

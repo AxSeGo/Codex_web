@@ -24,7 +24,7 @@ const Artist = () => {
   };
 
   return (
-    <div className="relative bg-black text-white min-h-screen p-10 pt-20">
+    <div className="relative bg-black text-white min-h-screen px-4 md:px-10 pt-20">
       <h1 className="text-4xl font-bold text-center mb-10 font-gothic">ARTISTS</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         {artists.map(artist => (

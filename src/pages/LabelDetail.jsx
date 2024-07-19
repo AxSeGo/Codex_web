@@ -45,11 +45,11 @@ const LabelDetail = () => {
     : 'https://via.placeholder.com/150';
 
   return (
-    <div className=" mx-auto p-4 md:px-10 pt-20 flex flex-wrap md:flex-nowrap items-start bg-black text-white min-h-screen">
+    <div className=" mx-auto py-10 px-4 md:px-20  pt-20 flex flex-wrap md:flex-nowrap items-start bg-black text-white min-h-screen">
       <div className="w-full md:w-1/2">
-        <img src={imageUrl} alt={label.attributes.Title} className="w-full object-cover rounded" />
+        <img src={imageUrl} alt={label.attributes.Title} className="w-full object-cover " />
       </div>
-      <div className="w-full md:w-1/2 md:pl-4">
+      <div className="w-full mt-3 md:mt-0 md:w-1/2 md:pl-4">
       <h1 className="text-4xl font-gothic bg-white text-black inline-block px-2 my-1 ">{label.attributes.Artist}</h1>
       <span className='mx-1'> </span>
         <h1 className="text-4xl font-gothic  bg-white text-black inline-block px-2 my-1 ">{label.attributes.Title}</h1>
