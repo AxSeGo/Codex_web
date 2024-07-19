@@ -7,7 +7,7 @@ function ScrollToTop() {
   useEffect(() => {
     console.log('ScrollToTop component mounted');
     console.log(`Current pathname: ${pathname}`);
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [pathname]);
 
   return null;

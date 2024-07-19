@@ -45,17 +45,19 @@ const LabelDetail = () => {
     : 'https://via.placeholder.com/150';
 
   return (
-    <div className=" mx-auto py-10 px-4 md:px-20  pt-20 flex flex-wrap md:flex-nowrap items-start bg-black text-white min-h-screen">
+    <div className="mx-auto py-10 px-4 md:px-20 pt-20 flex flex-wrap md:flex-nowrap items-start bg-black text-white min-h-screen">
       <div className="w-full md:w-1/2">
-        <img src={imageUrl} alt={label.attributes.Title} className="w-full object-cover " />
+        <img src={imageUrl} alt={label.attributes.Title} className="w-full object-cover" />
       </div>
       <div className="w-full mt-3 md:mt-0 md:w-1/2 md:pl-4">
-      <h1 className="text-4xl font-gothic bg-white text-black inline-block px-2 my-1 ">{label.attributes.Artist}</h1>
-      <span className='mx-1'> </span>
-        <h1 className="text-4xl font-gothic  bg-white text-black inline-block px-2 my-1 ">{label.attributes.Title}</h1>
+        <h1 className="text-4xl font-gothic bg-white text-black inline-block px-2 my-1">{label.attributes.Artist}</h1>
+        <span className="text-4xl font-gothic mx-1"> /// </span>
+        <h1 className="text-4xl font-gothic bg-white text-black inline-block px-2 my-1">{label.attributes.Title}</h1>
         <p className="mt-4 text-lg">{label.attributes.Description}</p>
+
         {label.attributes.Bandcamp && (
-          <div className="mt-4">
+          <div className="mt-8">
+            <h2 className="text-2xl font-gothic mb-4">Listen on Bandcamp</h2>
             <iframe 
               style={{ border: 0, width: '100%', height: '120px' }} 
               src="https://bandcamp.com/EmbeddedPlayer/album=2613296696/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" 
@@ -69,18 +71,20 @@ const LabelDetail = () => {
         )}
 
         {artist && (
-          <div className="mt-4 flex items-center">
-            <img src={artistAvatarUrl} alt={artist.attributes.Name} className="w-16 h-16 object-cover rounded-full mr-4" />
-            <Link to={`/artist/${artist.id}`} className="text-2xl text-white hover:text-orange-500">
-              {artist.attributes.Name}
-            </Link>
+          <div className="mt-8">
+            <h2 className="text-2xl font-gothic mb-4">Artist</h2>
+            <div className="flex items-center">
+              <img src={artistAvatarUrl} alt={artist.attributes.Name} className="w-16 h-16 object-cover rounded-full mr-4" />
+              <Link to={`/artist/${artist.id}`} className="text-2xl text-white hover:text-orange-500 transition duration-300">
+                {artist.attributes.Name}
+              </Link>
+            </div>
           </div>
         )}
 
-        <div className="mt-4">
-        <button onClick={() => navigate('/label')} className="bg-white text-black border-black border-2 rounded-full px-4 py-2 hover:bg-black hover:text-white transition duration-300">
-          Back to Label
-        </button>
+        <div className="mt-8">
+
+          <OutlineButton to="/label" className="ml-4">All tapes</OutlineButton>
         </div>
       </div>
     </div>
