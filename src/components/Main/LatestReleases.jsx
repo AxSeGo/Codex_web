@@ -5,8 +5,8 @@ import OutlineButton from '../Button/OutlineButton';
 const LatestReleases = ({ labels }) => {
   const getImageUrl = (images) => {
     if (!images || images.length === 0) return 'https://via.placeholder.com/150';
-    const image = images[0]; // Assuming you want the first image
-    return image.attributes.url; // Use the URL directly
+    const image = images[0]; 
+    return image.attributes.url; 
   };
 
   return (

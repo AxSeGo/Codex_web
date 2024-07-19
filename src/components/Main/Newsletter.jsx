@@ -14,7 +14,7 @@ const Newsletter = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (emailRegex.test(email)) {
       setMessage('Thank you for subscribing to our newsletter!');
-      // Simulate sending email
+      // Simulate email
       setTimeout(() => {
         setEmail('');
         setMessage('');
