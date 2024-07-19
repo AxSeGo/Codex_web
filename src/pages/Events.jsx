@@ -85,9 +85,9 @@ const Events = () => {
                     initial={{ x: -50, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ duration: 0.5 }}
-                    onTapStart={() => setHoveredCard(event.id)} // Trigger hover effect on tap start
-                    onHoverStart={() => setHoveredCard(event.id)} // Trigger hover effect on hover start
-                    onHoverEnd={() => setHoveredCard(null)} // Remove hover effect on hover end
+                    onTapStart={() => setHoveredCard(event.id)} 
+                    onHoverStart={() => setHoveredCard(event.id)}
+                    onHoverEnd={() => setHoveredCard(null)} 
                   >
                     <img 
                       src={event.attributes.flyer && event.attributes.flyer.data ? `http://localhost:1337${getImageUrl(event.attributes.flyer.data.attributes.formats)}` : 'https://via.placeholder.com/150'}
@@ -96,7 +96,7 @@ const Events = () => {
                     />
                     <motion.div 
                       className="absolute p-5 inset-0 bg-black bg-opacity-80 flex flex-col items-center justify-center opacity-0"
-                      animate={{ opacity: hoveredCard === event.id ? 1 : 0 }} // Animate opacity based on hovered state
+                      animate={{ opacity: hoveredCard === event.id ? 1 : 0 }} 
                       transition={{ duration: 0.3 }}
                     >
                       <p className="text-sm text-orange-500">{moment(event.attributes.event_date).format('ddd, D.M.YYYY')} - {event.attributes.Location}</p>
@@ -112,7 +112,6 @@ const Events = () => {
         ) : (
           <div className="text-center w-full">
             <p className="text-2xl font-gothic">There are no {filter} events. Follow us on Instagram or join the newsletter to stay updated.</p>
-            {/* Optional form for location and email subscription if necessary */}
           </div>
         )}
       </div>
